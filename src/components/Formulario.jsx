@@ -6,12 +6,18 @@ export default function Formulario() {
   const [propietario,setPropietario] = useState();
   const [email,setEmail] = useState();
   const [fecha,setFecha] = useState();
-  const [comentario,setComentario] = useState();
-  const handleSubmit = () => {
-
+  const [sintomas,setSintomas] = useState();
+  const [error,setError] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if([nombre,propietario,email,fecha,sintomas].includes('')){
+      console.log('campos vacios')
+    }else{
+      console.log('Enviando formulario')
+    }
   }
   return (
-    <div className="md:w1/2 lg:w-2/5">
+    <div className="md:w1/2 lg:w-2/5 mx-5">
       <h2 className="font-black text-3xl text-center">
         Seguimiento Pacientes
       </h2>
@@ -22,7 +28,7 @@ export default function Formulario() {
 
     <form 
     className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
-    oncChange={handleSubmit}>
+    onChange={handleSubmit}>
       <div className="mb-5">
         <label htmlFor="mascota"
         className="block text-gray-700 uppercase font-bold"
@@ -76,13 +82,13 @@ export default function Formulario() {
         className="block text-gray-700 uppercase font-bold"
         >Sintomas</label>
         <textarea 
-        onChange={(e)=>setComentario(e.target.value)}
-        value={comentario}
+        onChange={(e)=>setSintomas(e.target.value)}
+        value={sintomas}
         id="sintomas" 
         className="text-gray-400 border-2 w-full p-2 mt-2 rounded-md"
         placeholder="Describe los Sintoma"/>
       </div>
-      <input type="submit"
+      <input type="button"
       className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all "
       value='Agregar Paciente' />
     </form>
