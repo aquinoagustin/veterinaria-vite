@@ -11,10 +11,10 @@ export default function Formulario() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if([nombre,propietario,email,fecha,sintomas].includes('')){
-      console.log('campos vacios')
-    }else{
-      console.log('Enviando formulario')
+      setError(true)
+      return;
     }
+    setError(false)
   }
   return (
     <div className="md:w1/2 lg:w-2/5 mx-5">
@@ -28,14 +28,15 @@ export default function Formulario() {
 
     <form 
     className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
-    onChange={handleSubmit}>
+    onSubmit={handleSubmit}
+    >
+      {error && <div className="bg-red-800 text-white text-center p-3 uppercase font-bold mb-3 rounded-md"><p>Todos los campos son obligatorios</p></div>}
       <div className="mb-5">
         <label htmlFor="mascota"
         className="block text-gray-700 uppercase font-bold"
         >Nombre Mascota</label>
         <input 
         onChange={(e) => setNombre(e.target.value)}
-        value={nombre}
         id="mascota"
         type="text" placeholder="Nombre de la Mascota" 
         className="border-2 w-full p-2 mt-2 placeholder-gray-40 rounded-md"
@@ -47,7 +48,6 @@ export default function Formulario() {
         >Nombre Propietario</label>
         <input 
         onChange={(e)=>setPropietario(e.target.value)}
-        value={propietario}
         id="propietario"
         type="text" placeholder="Nombre del Propietario" 
         className="border-2 w-full p-2 mt-2 placeholder-gray-40 rounded-md"
@@ -59,7 +59,6 @@ export default function Formulario() {
         >Email</label>
         <input 
         onChange={(e)=>setEmail(e.target.value)}
-        value={email}
         id="email"
         type="email" placeholder="Email contacto propietario" 
         className="border-2 w-full p-2 mt-2 placeholder-gray-40 rounded-md"
@@ -71,7 +70,6 @@ export default function Formulario() {
         >Fecha</label>
         <input 
         onChange={(e)=>setFecha(e.target.value)}
-        value={fecha}
         id="alta"
         type="date"
         className="border-2 w-full p-2 mt-2 placeholder-gray-40 rounded-md"
@@ -83,14 +81,14 @@ export default function Formulario() {
         >Sintomas</label>
         <textarea 
         onChange={(e)=>setSintomas(e.target.value)}
-        value={sintomas}
         id="sintomas" 
         className="text-gray-400 border-2 w-full p-2 mt-2 rounded-md"
         placeholder="Describe los Sintoma"/>
       </div>
-      <input type="button"
+      <input type="submit"
       className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all "
-      value='Agregar Paciente' />
+      defaultValue='Agregar Paciente' 
+      />
     </form>
 
 
