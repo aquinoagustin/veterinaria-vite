@@ -1,12 +1,12 @@
 import { useState,useEffect } from "react"
+import Error from "./Error";
 
-
-export default function Formulario() {
-  const [nombre,setNombre] = useState();
-  const [propietario,setPropietario] = useState();
-  const [email,setEmail] = useState();
-  const [fecha,setFecha] = useState();
-  const [sintomas,setSintomas] = useState();
+export default function Formulario({pacientes,setPacientes}) {
+  const [nombre,setNombre] = useState('');
+  const [propietario,setPropietario] = useState('');
+  const [email,setEmail] = useState('');
+  const [fecha,setFecha] = useState('');
+  const [sintomas,setSintomas] = useState('');
   const [error,setError] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +15,10 @@ export default function Formulario() {
       return;
     }
     setError(false)
+    const objetoPaciente = {
+      nombre,propietario,email,fecha,sintomas
+    }
+    setPacientes([...pacientes,objetoPaciente])
   }
   return (
     <div className="md:w1/2 lg:w-2/5 mx-5">
@@ -30,12 +34,13 @@ export default function Formulario() {
     className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
     onSubmit={handleSubmit}
     >
-      {error && <div className="bg-red-800 text-white text-center p-3 uppercase font-bold mb-3 rounded-md"><p>Todos los campos son obligatorios</p></div>}
+      {error && <Error mensaje={'Todos los campos son obligatorios'}/>}
       <div className="mb-5">
         <label htmlFor="mascota"
         className="block text-gray-700 uppercase font-bold"
         >Nombre Mascota</label>
         <input 
+        value={nombre}
         onChange={(e) => setNombre(e.target.value)}
         id="mascota"
         type="text" placeholder="Nombre de la Mascota" 
@@ -47,6 +52,7 @@ export default function Formulario() {
         className="block text-gray-700 uppercase font-bold" 
         >Nombre Propietario</label>
         <input 
+        value={propietario}
         onChange={(e)=>setPropietario(e.target.value)}
         id="propietario"
         type="text" placeholder="Nombre del Propietario" 
@@ -58,6 +64,7 @@ export default function Formulario() {
         className="block text-gray-700 uppercase font-bold"
         >Email</label>
         <input 
+        value={email}
         onChange={(e)=>setEmail(e.target.value)}
         id="email"
         type="email" placeholder="Email contacto propietario" 
@@ -69,6 +76,7 @@ export default function Formulario() {
         className="block text-gray-700 uppercase font-bold"
         >Fecha</label>
         <input 
+        value={fecha}
         onChange={(e)=>setFecha(e.target.value)}
         id="alta"
         type="date"
@@ -85,9 +93,10 @@ export default function Formulario() {
         className="text-gray-400 border-2 w-full p-2 mt-2 rounded-md"
         placeholder="Describe los Sintoma"/>
       </div>
-      <input type="submit"
+      <input
+      value='Agregar Paciente'
+      type="submit"
       className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all "
-      defaultValue='Agregar Paciente' 
       />
     </form>
 
