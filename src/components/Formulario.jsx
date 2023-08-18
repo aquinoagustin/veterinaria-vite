@@ -16,9 +16,15 @@ export default function Formulario({pacientes,setPacientes}) {
     }
     setError(false)
     const objetoPaciente = {
+      id:generarId(),
       nombre,propietario,email,fecha,sintomas
     }
     setPacientes([...pacientes,objetoPaciente])
+  }
+  const generarId = () =>{
+    const random = Math.random().toString(36).substring(2);
+    const fecha = Date.now().toString(36);
+    return random + fecha;
   }
   return (
     <div className="md:w1/2 lg:w-2/5 mx-5">
