@@ -1,4 +1,4 @@
-export default function Paciente({paciente}){
+export default function Paciente({paciente,setPaciente}){
     const {nombre,propietario,email,fecha,sintomas} = paciente;
     return(
         <div className="mx-5 my-10 bg-white shadow-md px-5 py-10 rounded-xl">
@@ -19,7 +19,9 @@ export default function Paciente({paciente}){
         </p>
         <div className="flex justify-between mt-10">
             <button 
-            className="py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg">editar</button>
+            className="py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg"
+            onClick={()=>setPaciente(paciente)}
+            >editar</button>
             
             <button 
             className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white font-bold uppercase rounded-lg">borrar</button>
